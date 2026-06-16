@@ -1,0 +1,70 @@
+/* base.css — переменные, сброс, базовая типографика, утилиты */
+
+:root {
+  --bg:        #0c0b0a;
+  --bg-2:      #110f0d;
+  --surface:   #18150f;
+  --surface-2: #201c15;
+  --line:      rgba(255,255,255,0.07);
+  --line-2:    rgba(255,255,255,0.12);
+  --ink:       #ece6da;
+  --ink-dim:   #a69f90;
+  --ink-faint: #6c655a;
+  --ember:     #d6533c;
+  --ember-2:   #e7714f;
+  --ember-soft:rgba(214,83,60,0.12);
+  --amber:     #d9a441;
+  --ok:        #76b083;
+  --maxw:      1160px;
+  --r:         16px;
+  --ease:      cubic-bezier(.2,.7,.2,1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998;
+  pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection { background: var(--ember); color: #fff; }
+
+a { color: inherit; }
+
+.ico { width: 1em; height: 1em; flex-shrink: 0; }
+
+/* scroll progress */
+.progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--ember), var(--amber));
+  z-index: 1100; transition: width .1s linear;
+}
+
+/* focus */
+a:focus-visible, button:focus-visible, .gallery-item:focus-visible {
+  outline: 2px solid var(--ember-2); outline-offset: 3px; border-radius: 6px;
+}
+
+@media(max-width: 680px){
+  .nav-links { display: none; }
+  .info-label { min-width: 0; }
+  .data-table th, .data-table td { padding: 12px 14px; }
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
